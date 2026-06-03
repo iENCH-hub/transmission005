@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TRANSMISSION // 005</title>
+
+<style>
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#000;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* VIDEO */
+
+#background{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:black;
+
+    z-index:0;
+}
+
+#background video{
+
+    max-width:100%;
+    max-height:100vh;
+
+    width:auto;
+    height:auto;
+
+    object-fit:contain;
+}
+
+/* GRAIN */
+
+#grain{
+    position:fixed;
+    inset:0;
+
+    opacity:.07;
+
+    pointer-events:none;
+
+    background-image:
+    repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,.08) 0px,
+        rgba(255,255,255,.08) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+
+    z-index:2;
+}
+
+/* VIGNETTE */
+
+#overlay{
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+    radial-gradient(
+        circle,
+        transparent 20%,
+        rgba(0,0,0,.55) 100%
+    );
+
+    z-index:3;
+}
+
+/* INTRO */
+
+#intro{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    color:white;
+
+    z-index:10;
+
+    transition:1.5s;
+}
+
+#intro.hidden{
+    opacity:0;
+    pointer-events:none;
+}
+
+/* TITRES */
+
+.small{
+    letter-spacing:8px;
+    font-size:12px;
+    margin-bottom:20px;
+}
+
+.title{
+    font-size:34px;
+    letter-spacing:10px;
+}
+
+/* BOUTON */
+
+.terminal-btn{
+
+    margin-top:50px;
+
+    background:black;
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.6);
+
+    padding:14px 34px;
+
+    font-family:"Courier New", monospace;
+
+    letter-spacing:4px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.terminal-btn:hover{
+    background:white;
+    color:black;
+}
+
+/* MESSAGE */
+
+#message{
+
+    position:absolute;
+
+    left:8%;
+    bottom:10%;
+
+    max-width:500px;
+
+    color:white;
+
+    opacity:0;
+
+    transition:3s;
+
+    z-index:6;
+}
+
+#message.visible{
+    opacity:1;
+}
+
+.quote{
+    font-size:25px;
+    line-height:1.4;
+}
+
+.signature{
+    margin-top:25px;
+    letter-spacing:6px;
+    opacity:.8;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .title{
+        font-size:24px;
+    }
+
+    .quote{
+        font-size:20px;
+    }
+
+}
+
+</style>
+
+</head>
+<script>
+
+window.addEventListener('load', () => {
+
+    const video = document.getElementById('video');
+
+    video.play();
+
+    video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        video.play();
+    });
+
+});
+
+</script>
+<body>
+
+<!-- VIDEO -->
+
+<div id="background">
+
+<video id="video" autoplay muted loop playsinline>
+    <source src="TRANSMISSION_005_VIDEO.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<!-- GRAIN -->
+
+<div id="grain"></div>
+
+<!-- VIGNETTE -->
+
+<div id="overlay"></div>
+
+<!-- INTRO -->
+
+<div id="intro">
+
+<div class="small">
+TRANSMISSION
+</div>
+
+<div class="title">
+005
+</div>
+
+<button class="terminal-btn" onclick="enterTransmission()">
+REVEAL
+</button>
+
+</div>
+
+<!-- MESSAGE -->
+
+<div id="message">
+
+<div class="quote">
+New roads lead to Nowhere. Nowhere is Home.
+</div>
+
+<div class="signature">
+C
+</div>
+
+</div>
+
+<!-- AUDIO -->
+
+<audio id="audio" loop>
+
+<source src="TRANSMISSION_005_SOUND.mp3" type="audio/mpeg">
+
+</audio>
+
+<script>
+
+function enterTransmission(){
+
+    document
+    .getElementById("intro")
+    .classList
+    .add("hidden");
+
+    document
+    .getElementById("audio")
+    .play();
+
+    setTimeout(() => {
+
+        document
+        .getElementById("message")
+        .classList
+        .add("visible");
+
+    },1500);
+
+}
+
+</script>
+
+</body>
+</html>
